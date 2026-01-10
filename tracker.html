@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit & Inventory Tracker</title>
+    <meta name="description" content="Track your sales, inventory, and profit splits across multiple products with your investors in real-time.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container container--wide">
+        
+        <!-- Header -->
+        <header class="header">
+            <div>
+                <div class="header__brand">
+                    <div class="header__icon">◈</div>
+                    <h1 class="header__title">Profit Tracker</h1>
+                </div>
+                <p class="header__subtitle">Multi-Product Dashboard • Auto-saves</p>
+            </div>
+            <button onclick="clearData()" class="btn btn--reset">
+                Reset All
+            </button>
+        </header>
+
+        <!-- Add Product Section -->
+        <section class="card card--setup">
+            <div class="card__header">
+                <div>
+                    <p class="card__title">Add Product</p>
+                    <h2 class="card__heading">Configure New Product</h2>
+                </div>
+            </div>
+            
+            <div class="form-grid form-grid--5col">
+                <div class="form-group form-group--wide">
+                    <label class="form-label" for="productName">Product Name</label>
+                    <input type="text" id="productName" placeholder="e.g. T-Shirts" class="form-input form-input--accent">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="costPrice">Cost per Item (₱)</label>
+                    <input type="number" id="costPrice" placeholder="e.g. 200" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="sellPrice">Selling Price (₱)</label>
+                    <input type="number" id="sellPrice" placeholder="e.g. 350" class="form-input form-input--green">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="myCapital">My Capital (₱)</label>
+                    <input type="number" id="myCapital" placeholder="e.g. 2000" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="investorCapital">Investor Capital (₱)</label>
+                    <input type="number" id="investorCapital" placeholder="e.g. 3000" class="form-input">
+                </div>
+            </div>
+            
+            <div class="form-footer">
+                <div class="form-group">
+                    <label class="form-label" for="profitSplit">Your Share of Investor Profit (Labor)</label>
+                    <select id="profitSplit" class="form-select">
+                        <option value="0.6">60% to Me / 40% to Investor</option>
+                        <option value="0.5">50% to Me / 50% to Investor</option>
+                    </select>
+                </div>
+                <button onclick="addProduct()" class="btn btn--primary">
+                    + Add Product
+                </button>
+            </div>
+        </section>
+
+        <!-- Product Tabs -->
+        <section class="product-tabs-section">
+            <h3 class="section-title">Your Products</h3>
+            <div id="productTabs" class="product-tabs">
+                <p class="no-products">No products yet. Add your first product above!</p>
+            </div>
+        </section>
+
+        <!-- Split View Dashboard -->
+        <div id="splitDashboard" class="split-dashboard">
+            <div class="empty-dashboard">
+                <div class="empty-dashboard__icon">📦</div>
+                <h3>No Products Selected</h3>
+                <p>Add a product above, then use the arrow buttons to display it here.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Custom Modal -->
+    <div id="customModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal__icon" id="modalIcon">⚠</div>
+            <h3 class="modal__title" id="modalTitle">Title</h3>
+            <p class="modal__message" id="modalMessage">Message</p>
+            <div class="modal__actions" id="modalActions">
+                <button class="btn btn--modal-cancel" id="modalCancel">Cancel</button>
+                <button class="btn btn--modal-confirm" id="modalConfirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
