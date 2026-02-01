@@ -302,9 +302,14 @@ function renderPanel(panelIndex) {
                         <p class="sold-label">Sold</p>
                         <p class="sold-count sold-count--gold" id="mySold-${product.id}">${product.mySold}</p>
                     </div>
-                    <button onclick="sellItem('${product.id}', 'me')" class="btn btn--sell btn--sell-gold">
-                        + Sold 1
-                    </button>
+                    <div class="sold-actions">
+                        <button onclick="unsellItem('${product.id}', 'me')" class="btn btn--undo btn--undo-gold">
+                            - Undo
+                        </button>
+                        <button onclick="sellItem('${product.id}', 'me')" class="btn btn--sell btn--sell-gold">
+                            + Sold 1
+                        </button>
+                    </div>
                 </div>
 
                 <div class="profit-section">
@@ -339,9 +344,14 @@ function renderPanel(panelIndex) {
                         <p class="sold-label">Sold</p>
                         <p class="sold-count sold-count--cyan" id="invSold-${product.id}">${product.invSold}</p>
                     </div>
-                    <button onclick="sellItem('${product.id}', 'investor')" class="btn btn--sell btn--sell-cyan">
-                        + Sold 1
-                    </button>
+                    <div class="sold-actions">
+                        <button onclick="unsellItem('${product.id}', 'investor')" class="btn btn--undo btn--undo-cyan">
+                            - Undo
+                        </button>
+                        <button onclick="sellItem('${product.id}', 'investor')" class="btn btn--sell btn--sell-cyan">
+                            + Sold 1
+                        </button>
+                    </div>
                 </div>
 
                 <div class="profit-section">
@@ -412,6 +422,41 @@ function sellItem(productId, who) {
                 title: "Out of Stock",
                 message: `No more inventory in Investor Stash for "${product.name}"!`,
                 icon: "📦",
+                type: "warning"
+            });
+        }
+    }
+}
+
+function unsellItem(productId, who) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    if (who === 'me') {
+        if (product.mySold > 0) {
+            product.mySold--;
+            saveData();
+            renderSplitView();
+            triggerSaleAnimation(`mySold-${productId}`);
+        } else {
+            showAlert({
+                title: "Nothing to Undo",
+                message: `No sales to undo in Your Stash for "${product.name}"!`,
+                icon: "↩️",
+                type: "warning"
+            });
+        }
+    } else {
+        if (product.invSold > 0) {
+            product.invSold--;
+            saveData();
+            renderSplitView();
+            triggerSaleAnimation(`invSold-${productId}`);
+        } else {
+            showAlert({
+                title: "Nothing to Undo",
+                message: `No sales to undo in Investor Stash for "${product.name}"!`,
+                icon: "↩️",
                 type: "warning"
             });
         }
